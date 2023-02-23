@@ -281,11 +281,13 @@ export default {
     },
 
     syncFixedTableRowHeight() {
-      const tableRect = this.tableNode.getBoundingClientRect();
-      // If tableNode's height less than 0, suppose it is hidden and don't recalculate rowHeight.
-      // see: https://github.com/ant-design/ant-design/issues/4836
-      if (tableRect.height !== undefined && tableRect.height <= 0) {
-        return;
+      if (this.tableNode) {
+        const tableRect = this.tableNode.getBoundingClientRect();
+        // If tableNode's height less than 0, suppose it is hidden and don't recalculate rowHeight.
+        // see: https://github.com/ant-design/ant-design/issues/4836
+        if (tableRect.height !== undefined && tableRect.height <= 0) {
+          return;
+        }
       }
       const { prefixCls } = this;
       const headRows = this.ref_headTable

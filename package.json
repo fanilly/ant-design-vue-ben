@@ -1,6 +1,6 @@
 {
-  "name": "ant-design-vue",
-  "version": "1.7.8",
+  "name": "ant-design-vue-ben",
+  "version": "2.0.0",
   "title": "Ant Design Vue",
   "description": "An enterprise-class UI design language and Vue-based implementation",
   "keywords": [
@@ -46,7 +46,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vueComponent/ant-design-vue.git"
+    "url": "git+https://github.com/fanilly/ant-design-vue-ben.git"
   },
   "license": "MIT",
   "bugs": {

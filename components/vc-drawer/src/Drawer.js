@@ -520,9 +520,7 @@ const Drawer = {
               {...{ directives: directivesMaskDom }}
             />
           )}
-          {this.resizable && (
-            <draggableResizable {...dragProps}>{this.draggableX}</draggableResizable>
-          )}
+          {this.resizable && <draggableResizable {...dragProps}></draggableResizable>}
           <div
             class={`${prefixCls}-content-wrapper`}
             style={{

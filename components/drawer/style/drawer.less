@@ -56,9 +56,11 @@
     top: 0;
     width: 0%;
     height: 100%;
+
     .@{drawer-prefix-cls}-content-wrapper {
       height: 100%;
     }
+
     &.@{drawer-prefix-cls}-open {
       width: 100%;
       transition: transform @animation-duration-slow @ease-base-out;
@@ -227,19 +229,12 @@
   }
 
   &-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: @zindex-popup-close;
-    display: block;
-    width: 56px;
-    height: 56px;
-    padding: 0;
+    display: inline-block;
     color: @text-color-secondary;
     font-weight: 700;
     font-size: @font-size-lg;
     font-style: normal;
-    line-height: 56px;
+    line-height: 1;
     text-align: center;
     text-transform: none;
     text-decoration: none;
@@ -258,17 +253,55 @@
   }
 
   &-header {
-    position: relative;
+    position: absolute;
+    width: 100%;
     padding: @drawer-header-padding;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
     color: @text-color;
     background: @component-background;
     border-bottom: @border-width-base @border-style-base @border-color-split;
     border-radius: @border-radius-base @border-radius-base 0 0;
+    // box-shadow: -4px 1px 4px 0px rgba(0, 21, 41,.08);
+
+    &-lside {
+      display: flex;
+      align-items: center;
+      width: 0;
+      flex: 1;
+
+      .@{drawer-prefix-cls}-title {
+        position: relative;
+        padding-left: @padding-sm;
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          width: 3px;
+          height: 16px;
+          background: @primary-color;
+        }
+      }
+    }
+
+    &-rside {
+      padding-right: 4px;
+    }
   }
 
   &-header-no-title {
+    position: absolute;
+    width: 100%;
+    padding: @drawer-header-padding;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
     color: @text-color;
-    background: @component-background;
   }
 
   &-body {
@@ -276,6 +309,10 @@
     font-size: @font-size-base;
     line-height: @line-height-base;
     word-wrap: break-word;
+  }
+
+  &-hastitle-body {
+    margin-top: 56px;
   }
 
   &-wrapper-body {

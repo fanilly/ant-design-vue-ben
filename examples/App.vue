@@ -4,16 +4,26 @@
     <a-button type="primary" @click="lVisible = !lVisible">左侧弹窗</a-button>
     <a-button type="primary" @click="tVisible = !tVisible">顶部弹窗</a-button>
     <a-button type="primary" @click="bVisible = !bVisible">底部弹窗</a-button>
-    <a-drawer placement="right" :visible="rVisible" @close="rVisible = false">
+    <a-drawer placement="right" :visible="rVisible" @close="rVisible = false" title="测试">
+      <div slot="extra">
+        <a-button>取消</a-button>
+        <a-button type="primary">确定</a-button>
+      </div>
       <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
     </a-drawer>
     <a-drawer placement="left" :visible="lVisible" @close="lVisible = false">
       <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
     </a-drawer>
-    <a-drawer placement="top" :visible="tVisible" @close="tVisible = false">
+    <a-drawer
+      placement="top"
+      :visible="tVisible"
+      @close="tVisible = false"
+      title="test"
+      :closable="false"
+    >
       <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
     </a-drawer>
-    <a-drawer placement="bottom" :visible="bVisible" @close="bVisible = false">
+    <a-drawer placement="bottom" :visible="bVisible" @close="bVisible = false" title="test">
       <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
     </a-drawer>
   </div>

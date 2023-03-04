@@ -219,15 +219,20 @@ const Drawer = {
     renderHeader(prefixCls) {
       const { closable, headerStyle } = this.$props;
       const title = getComponentFromProp(this, 'title');
-      if (!title && !closable) {
+      const extraDom = getComponentFromProp(this, 'extra');
+      if (!title && !closable && !extraDom) {
         return null;
       }
 
-      const headerClassName = title ? `${prefixCls}-header` : `${prefixCls}-header-no-title`;
+      const headerClassName =
+        title || extraDom ? `${prefixCls}-header` : `${prefixCls}-header-no-title`;
       return (
         <div class={headerClassName} style={headerStyle}>
-          {title && <div class={`${prefixCls}-title`}>{title}</div>}
-          {closable ? this.renderCloseIcon(prefixCls) : null}
+          <div class={`${prefixCls}-header-lside`}>
+            {closable ? this.renderCloseIcon(prefixCls) : null}
+            {title && <div class={`${prefixCls}-title`}>{title}</div>}
+          </div>
+          <div class={`${prefixCls}-header-rside`}>{extraDom}</div>
         </div>
       );
     },
@@ -258,14 +263,21 @@ const Drawer = {
         containerStyle.transition = 'opacity .3s';
       }
 
+      const header = this.renderHeader(prefixCls);
       return (
         <div
           class={`${prefixCls}-wrapper-body`}
           style={{ ...containerStyle, ...drawerStyle }}
           onTransitionend={this.onDestroyTransitionEnd}
         >
-          {this.renderHeader(prefixCls)}
-          <div key="body" class={`${prefixCls}-body`} style={bodyStyle}>
+          {header}
+          <div
+            key="body"
+            class={`${prefixCls}-body ${prefixCls}-${
+              header === null ? 'notitle' : 'hastitle'
+            }-body`}
+            style={bodyStyle}
+          >
             {this.$slots.default}
           </div>
         </div>

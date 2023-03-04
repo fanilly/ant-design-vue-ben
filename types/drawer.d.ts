@@ -5,6 +5,11 @@
 import { AntdComponent } from './component';
 
 export declare class Drawer extends AntdComponent {
+  /** 允许调整尺寸 默认为true */
+  resizable: boolean;
+
+  /** 最小内容尺寸及最小留白尺寸 default 60 */
+  minSize: number;
   /**
    * Whether a close (x) button is visible on top right of the Drawer dialog or not.
    * @default true

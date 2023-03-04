@@ -19,7 +19,10 @@ const IProps = {
   wrapStyle: PropTypes.object,
   maskClosable: PropTypes.bool,
   afterVisibleChange: PropTypes.func,
+  resizable: PropTypes.bool,
   keyboard: PropTypes.bool,
+  draggableX: PropTypes.number,
+  draggableY: PropTypes.number,
 };
 
 const IDrawerProps = {

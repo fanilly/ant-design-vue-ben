@@ -7,6 +7,7 @@ import { cloneElement } from '../../_util/vnode';
 import getScrollBarSize from '../../_util/getScrollBarSize';
 import { IDrawerProps } from './IDrawerPropTypes';
 import KeyCode from '../../_util/KeyCode';
+import draggableResizable from './draggable-resizable.vue';
 import {
   dataToArray,
   transitionEnd,
@@ -30,6 +31,7 @@ const windowIsUndefined = !(
 Vue.use(ref, { name: 'ant-ref' });
 const Drawer = {
   mixins: [BaseMixin],
+  components: { draggableResizable },
   props: initDefaultProps(IDrawerProps, {
     prefixCls: 'drawer',
     placement: 'left',
@@ -40,6 +42,7 @@ const Drawer = {
     firstEnter: false, // 记录首次进入.
     showMask: true,
     handler: true,
+    resizable: true,
     maskStyle: {},
     wrapperClassName: '',
     className: '',
@@ -483,6 +486,29 @@ const Drawer = {
           },
         },
       ];
+
+      let dragProps = {
+        key: 'drawer-draggable-handle',
+        class: `${prefixCls}-content-resizable-handle ${isHorizontal && 'is-horizontal'}`,
+        attrs: {
+          w: isHorizontal ? 7 : 200,
+          h: isHorizontal ? 200 : 7,
+          x: isHorizontal ? this.draggableX : 0,
+          y: isHorizontal ? 0 : this.draggableY,
+          z: 2,
+          axis: isHorizontal ? 'x' : 'y',
+          draggable: true,
+          resizable: false,
+        },
+        on: {
+          dragging: (x, y) => {
+            this.$emit('sizeChange', x, y);
+          },
+          dragstop: (x, y) => {
+            this.$emit('sizeChangeStop', x, y);
+          },
+        },
+      };
       return (
         <div {...domContProps} tabIndex={-1}>
           {showMask && (
@@ -494,13 +520,16 @@ const Drawer = {
               {...{ directives: directivesMaskDom }}
             />
           )}
+          {this.resizable && (
+            <draggableResizable {...dragProps}>{this.draggableX}</draggableResizable>
+          )}
           <div
             class={`${prefixCls}-content-wrapper`}
             style={{
               transform,
               msTransform: transform,
-              width: isNumeric(width) ? `${width}px` : width,
-              height: isNumeric(height) ? `${height}px` : height,
+              width: isHorizontal ? (isNumeric(width) ? `${width}px` : width) : '100%',
+              height: isHorizontal ? '100%' : isNumeric(height) ? `${height}px` : height,
             }}
             {...{ directives: directivesContentWrapper }}
           >

@@ -13,14 +13,39 @@
   height: 100%;
   transition: transform @animation-duration-slow @ease-base-out,
     height 0s ease @animation-duration-slow, width 0s ease @animation-duration-slow;
+
   > * {
     transition: transform @animation-duration-slow @ease-base-out,
       box-shadow @animation-duration-slow @ease-base-out;
   }
 
+  &-content-resizable-handle {
+    position: fixed;
+    margin: auto;
+    transition: background-color @ease-in @animation-duration-base;
+    background-color: transparent;
+    display: none;
+
+    &::after {
+      content: '';
+      display: block;
+      margin: auto;
+      position: absolute;
+    }
+
+    &:hover {
+      background-color: rgba(@primary-color, 0.3);
+
+      &::after {
+        border-left: 2px dashed rgba(@primary-color, 0.5);
+      }
+    }
+  }
+
   &-content-wrapper {
     position: absolute;
   }
+
   .@{drawer-prefix-cls}-content {
     width: 100%;
     height: 100%;
@@ -37,7 +62,32 @@
     &.@{drawer-prefix-cls}-open {
       width: 100%;
       transition: transform @animation-duration-slow @ease-base-out;
+
+      .@{drawer-prefix-cls}-content-resizable-handle {
+        display: block;
+        cursor: col-resize;
+        top: 0;
+        bottom: 0;
+        margin-left: -4px;
+        height: 100vh;
+
+        &::after {
+          width: 0;
+          height: 200vh;
+          left: 0;
+          right: 0;
+          top: -100vh;
+          border-left: 2px dashed transparent;
+        }
+
+        &:hover {
+          &::after {
+            border-left: 2px dashed rgba(@primary-color, 0.5);
+          }
+        }
+      }
     }
+
     &.@{drawer-prefix-cls}-open.no-mask {
       width: 0%;
     }
@@ -59,10 +109,12 @@
         right: 0;
       }
     }
+
     &.@{drawer-prefix-cls}-open {
       .@{drawer-prefix-cls}-content-wrapper {
         box-shadow: @shadow-1-left;
       }
+
       // https://github.com/ant-design/ant-design/issues/18607, Avoid edge alignment bug.
       &.no-mask {
         right: 1px;
@@ -80,10 +132,36 @@
     .@{drawer-prefix-cls}-content-wrapper {
       width: 100%;
     }
+
     &.@{drawer-prefix-cls}-open {
       height: 100%;
       transition: transform @animation-duration-slow @ease-base-out;
+
+      .@{drawer-prefix-cls}-content-resizable-handle {
+        cursor: row-resize;
+        display: block;
+        left: 0;
+        right: 0;
+        margin-top: -4px;
+        width: 100vh;
+
+        &::after {
+          height: 0;
+          width: 200vh;
+          top: 0;
+          bottom: 0;
+          left: -100vh;
+          border-top: 2px dashed transparent;
+        }
+
+        &:hover {
+          &::after {
+            border-top: 2px dashed rgba(@primary-color, 0.5);
+          }
+        }
+      }
     }
+
     &.@{drawer-prefix-cls}-open.no-mask {
       height: 0%;
     }
@@ -107,10 +185,12 @@
         bottom: 0;
       }
     }
+
     &.@{drawer-prefix-cls}-open {
       .@{drawer-prefix-cls}-content-wrapper {
         box-shadow: @shadow-1-up;
       }
+
       &.no-mask {
         bottom: 1px;
         transform: translateY(1px);
@@ -197,6 +277,7 @@
     line-height: @line-height-base;
     word-wrap: break-word;
   }
+
   &-wrapper-body {
     height: 100%;
     overflow: auto;
@@ -213,6 +294,7 @@
     filter: ~'alpha(opacity=45)';
     transition: opacity @animation-duration-slow linear, height 0s ease @animation-duration-slow;
   }
+
   &-open {
     &-content {
       box-shadow: @shadow-2;
@@ -224,6 +306,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }

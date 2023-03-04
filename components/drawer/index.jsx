@@ -5,8 +5,15 @@ import PropTypes from '../_util/vue-types';
 import BaseMixin from '../_util/BaseMixin';
 import Icon from '../icon';
 import { getComponentFromProp, getOptionProps, getListeners } from '../_util/props-util';
+import addEventListener from '../vc-util/Dom/addEventListener';
+import debounce from 'lodash/debounce';
+
 import { ConfigConsumerProps } from '../config-provider/configConsumerProps';
 import Base from '../base';
+const getDraggableX = (placement, winWidth, newWidth, minSize) =>
+  placement === 'right' ? Math.max(winWidth - newWidth, minSize) : newWidth;
+const getDraggableY = (placement, winHeight, newHeight, minSize) =>
+  placement === 'bottom' ? Math.max(winHeight - newHeight, minSize) : newHeight;
 
 const Drawer = {
   name: 'ADrawer',
@@ -15,6 +22,8 @@ const Drawer = {
     destroyOnClose: PropTypes.bool,
     getContainer: PropTypes.any,
     maskClosable: PropTypes.bool.def(true),
+    resizable: PropTypes.bool.def(true),
+    minSize: PropTypes.number.def(60),
     mask: PropTypes.bool.def(true),
     maskStyle: PropTypes.object,
     wrapStyle: PropTypes.object,
@@ -36,11 +45,33 @@ const Drawer = {
   },
   mixins: [BaseMixin],
   data() {
+    let windowWidth = document.documentElement.clientWidth,
+      windowHeihgt = document.documentElement.clientHeight;
+
+    let newWidth = parseFloat(this.width),
+      newHeight = parseFloat(this.height);
+    let draggableX = getDraggableX(this.placement, windowWidth, newWidth, this.minSize),
+      draggableY = getDraggableY(this.placement, windowHeihgt, newHeight, this.minSize);
+
     this.destroyClose = false;
     this.preVisible = this.$props.visible;
     return {
+      windowWidth,
+      windowHeihgt,
+      newWidth,
+      newHeight,
+      draggableX,
+      draggableY,
       _push: false,
     };
+  },
+  watch: {
+    width(newVal) {
+      this.newWidth = parseFloat(newVal);
+    },
+    height(newVal) {
+      this.newHeight = parseFloat(newVal);
+    },
   },
   inject: {
     parentDrawer: {
@@ -79,7 +110,51 @@ const Drawer = {
       this.parentDrawer.pull();
     }
   },
+  created: function created() {
+    this.debouncedWindowResize = debounce(this.handleWindowResize, 150);
+  },
+  mounted: function mounted() {
+    let self = this;
+    this.$nextTick(function() {
+      self.handleWindowResize();
+      self.resizeEvent = addEventListener(window, 'resize', self.debouncedWindowResize);
+    });
+  },
+  updated: function updated() {
+    var self = this;
+    this.$nextTick(function() {
+      self.handleWindowResize();
+      if (!self.resizeEvent) {
+        self.resizeEvent = addEventListener(window, 'resize', self.debouncedWindowResize);
+      }
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.resizeEvent) {
+      this.resizeEvent.remove();
+    }
+    if (this.debouncedWindowResize) {
+      this.debouncedWindowResize.cancel();
+    }
+  },
+
   methods: {
+    handleWindowResize() {
+      this.windowWidth = document.documentElement.clientWidth;
+      this.draggableX = getDraggableX(
+        this.placement,
+        this.windowWidth,
+        this.newWidth,
+        this.minSize,
+      );
+      this.windowHeihgt = document.documentElement.clientHeight;
+      this.draggableY = getDraggableY(
+        this.placement,
+        this.windowHeihgt,
+        this.newHeight,
+        this.minSize,
+      );
+    },
     domFocus() {
       if (this.$refs.vcDrawer) {
         this.$refs.vcDrawer.domFocus();
@@ -201,14 +276,17 @@ const Drawer = {
     const props = getOptionProps(this);
     const {
       prefixCls: customizePrefixCls,
-      width,
-      height,
       visible,
       placement,
       wrapClassName,
       mask,
       ...rest
     } = props;
+    const width = this.newWidth;
+    const height = this.newHeight;
+    const { windowWidth, windowHeihgt, minSize } = this;
+    const xMin = windowWidth - minSize;
+    const yMin = windowHeihgt - minSize;
     const haveMask = mask ? '' : 'no-mask';
     const offsetStyle = {};
     if (placement === 'left' || placement === 'right') {
@@ -230,6 +308,8 @@ const Drawer = {
           'headerStyle',
           'bodyStyle',
           'title',
+          'width',
+          'height',
           'push',
           'visible',
           'getPopupContainer',
@@ -240,6 +320,10 @@ const Drawer = {
           'pageHeader',
           'autoInsertSpaceInButton',
         ]),
+        draggableX: this.draggableX,
+        draggableY: this.draggableY,
+        width: this.newWidth,
+        height: this.newHeight,
         handler,
         ...offsetStyle,
         prefixCls,
@@ -254,6 +338,58 @@ const Drawer = {
       },
       on: {
         ...getListeners(this),
+        sizeChange: (x, y) => {
+          switch (placement) {
+            case 'right':
+              this.newWidth = Math.min(xMin, windowWidth - Math.min(x, xMin));
+              break;
+            case 'left':
+              this.newWidth = Math.min(Math.max(minSize, x), xMin);
+              break;
+            case 'top':
+              this.newHeight = Math.min(Math.max(minSize, y), yMin);
+              break;
+            case 'bottom':
+              this.newHeight = Math.min(yMin, windowHeihgt - Math.min(y, yMin));
+              break;
+
+            default:
+              break;
+          }
+
+          this.$emit('drawerResizable', this.newWidth, this.newHeight);
+        },
+        sizeChangeStop: (x, y) => {
+          let curWidth = 0,
+            curHeight = 0;
+          switch (placement) {
+            case 'right':
+              curWidth = Math.min(xMin, windowWidth - Math.min(x, xMin));
+              this.newWidth = curWidth === this.newWidth ? curWidth + 1 : curWidth;
+              this.draggableX = windowWidth - this.newWidth;
+              break;
+            case 'left':
+              curWidth = Math.min(Math.max(minSize, x), xMin);
+              this.newWidth = curWidth === this.newWidth ? curWidth + 1 : curWidth;
+              this.draggableX = this.newWidth;
+              break;
+            case 'top':
+              curHeight = Math.min(Math.max(minSize, y), yMin);
+              this.newHeight = curHeight === this.newHeight ? curHeight + 1 : curHeight;
+              this.draggableY = this.newHeight;
+              break;
+            case 'bottom':
+              curHeight = Math.min(yMin, windowHeihgt - Math.min(y, yMin));
+              this.newHeight = curHeight === this.newHeight ? curHeight + 1 : curHeight;
+              this.draggableY = windowHeihgt - this.newHeight;
+              break;
+
+            default:
+              break;
+          }
+
+          this.$emit('drawerResizable', this.newWidth, this.newHeight);
+        },
       },
     };
     return <VcDrawer {...vcDrawerProps}>{this.renderBody(prefixCls)}</VcDrawer>;

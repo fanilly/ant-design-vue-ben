@@ -1,37 +1,7 @@
-<template>
-  <div
-    :style="style"
-    :class="[
-      {
-        [classNameActive]: enabled,
-        [classNameDragging]: dragging,
-        [classNameResizing]: resizing,
-        [classNameDraggable]: draggable,
-        [classNameResizable]: resizable,
-      },
-      className,
-    ]"
-    @mousedown="elementDown"
-    @touchstart="elementTouchDown"
-  >
-    <div
-      v-for="handle in actualHandles"
-      :key="handle"
-      :class="[classNameHandle, classNameHandle + '-' + handle]"
-      :style="{ display: enabled ? 'block' : 'none' }"
-      @mousedown.stop.prevent="handleDown(handle, $event)"
-      @touchstart.stop.prevent="handleTouchDown(handle, $event)"
-    >
-      <slot :name="handle"></slot>
-    </div>
-    <slot></slot>
-  </div>
-</template>
-
-<script>
 function isFunction(func) {
   return typeof func === 'function' || Object.prototype.toString.call(func) === '[object Function]';
 }
+
 function matchesSelectorToParentElements(el, selector, baseNode) {
   let node = el;
 
@@ -109,7 +79,7 @@ const userSelectAuto = {
 
 let eventsFor = events.mouse;
 
-export default {
+export const draggableResizable = {
   replace: true,
   name: 'draggable-resizable',
   props: {
@@ -883,74 +853,49 @@ export default {
       }
     },
   },
+  render() {
+    const className = [
+      {
+        [this.classNameActive]: this.enabled,
+        [this.classNameDragging]: this.dragging,
+        [this.classNameResizing]: this.resizing,
+        [this.classNameDraggable]: this.draggable,
+        [this.classNameResizable]: this.resizable,
+      },
+      this.className,
+    ];
+    return (
+      <div
+        style={this.style}
+        class={className}
+        onMousedown={this.elementDown}
+        onTouchstart={this.elementTouchDown}
+      >
+        {this.actualHandles.map(handle => {
+          return (
+            <div
+              key={handle}
+              class={[this.classNameHandle, this.classNameHandle + '-' + handle]}
+              style={{ display: this.enabled ? 'block' : 'none' }}
+              onMousedown={e => {
+                e.stopPropagation();
+                e.preventDefault();
+                this.handleDown(handle, e);
+              }}
+              onTouchstart={e => {
+                e.stopPropagation();
+                e.preventDefault();
+                this.handleTouchDown(handle, e);
+              }}
+            >
+              <slot name={handle}></slot>
+            </div>
+          );
+        })}
+        <slot></slot>
+      </div>
+    );
+  },
 };
-</script>
-<style>
-.vdr {
-  touch-action: none;
-  position: absolute;
-  box-sizing: border-box;
-}
-.handle {
-  box-sizing: border-box;
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #eee;
-  border: 1px solid #333;
-}
-.handle-tl {
-  top: -10px;
-  left: -10px;
-  cursor: nw-resize;
-}
-.handle-tm {
-  top: -10px;
-  left: 50%;
-  margin-left: -5px;
-  cursor: n-resize;
-}
-.handle-tr {
-  top: -10px;
-  right: -10px;
-  cursor: ne-resize;
-}
-.handle-ml {
-  top: 50%;
-  margin-top: -5px;
-  left: -10px;
-  cursor: w-resize;
-}
-.handle-mr {
-  top: 50%;
-  margin-top: -5px;
-  right: -10px;
-  cursor: e-resize;
-}
-.handle-bl {
-  bottom: -10px;
-  left: -10px;
-  cursor: sw-resize;
-}
-.handle-bm {
-  bottom: -10px;
-  left: 50%;
-  margin-left: -5px;
-  cursor: s-resize;
-}
-.handle-br {
-  bottom: -10px;
-  right: -10px;
-  cursor: se-resize;
-}
-@media only screen and (max-width: 768px) {
-  [class*='handle-']:before {
-    content: '';
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    top: -10px;
-    position: absolute;
-  }
-}
-</style>
+
+export default draggableResizable;

@@ -7,7 +7,7 @@ import { cloneElement } from '../../_util/vnode';
 import getScrollBarSize from '../../_util/getScrollBarSize';
 import { IDrawerProps } from './IDrawerPropTypes';
 import KeyCode from '../../_util/KeyCode';
-import draggableResizable from './draggable-resizable.vue';
+import draggableResizable from './draggableResizable';
 import {
   dataToArray,
   transitionEnd,

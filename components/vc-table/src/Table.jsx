@@ -289,36 +289,39 @@ export default {
           return;
         }
       }
-      const { prefixCls } = this;
-      const headRows = this.ref_headTable
-        ? this.ref_headTable.querySelectorAll('thead')
-        : this.ref_bodyTable.querySelectorAll('thead');
-      const bodyRows = this.ref_bodyTable.querySelectorAll(`.${prefixCls}-row`) || [];
-      const fixedColumnsHeadRowsHeight = [].map.call(headRows, row =>
-        row.getBoundingClientRect().height ? row.getBoundingClientRect().height - 0.5 : 'auto',
-      );
-      const state = this.store;
-      const fixedColumnsBodyRowsHeight = [].reduce.call(
-        bodyRows,
-        (acc, row) => {
-          const rowKey = row.getAttribute('data-row-key');
-          const height =
-            row.getBoundingClientRect().height ||
-            state.fixedColumnsBodyRowsHeight[rowKey] ||
-            'auto';
-          acc[rowKey] = height;
-          return acc;
-        },
-        {},
-      );
-      if (
-        shallowequal(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) &&
-        shallowequal(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
-      ) {
-        return;
-      }
-      this.store.fixedColumnsHeadRowsHeight = fixedColumnsHeadRowsHeight;
-      this.store.fixedColumnsBodyRowsHeight = fixedColumnsBodyRowsHeight;
+
+      try {
+        const { prefixCls } = this;
+        const headRows = this.ref_headTable
+          ? this.ref_headTable.querySelectorAll('thead')
+          : this.ref_bodyTable.querySelectorAll('thead');
+        const bodyRows = this.ref_bodyTable.querySelectorAll(`.${prefixCls}-row`) || [];
+        const fixedColumnsHeadRowsHeight = [].map.call(headRows, row =>
+          row.getBoundingClientRect().height ? row.getBoundingClientRect().height - 0.5 : 'auto',
+        );
+        const state = this.store;
+        const fixedColumnsBodyRowsHeight = [].reduce.call(
+          bodyRows,
+          (acc, row) => {
+            const rowKey = row.getAttribute('data-row-key');
+            const height =
+              row.getBoundingClientRect().height ||
+              state.fixedColumnsBodyRowsHeight[rowKey] ||
+              'auto';
+            acc[rowKey] = height;
+            return acc;
+          },
+          {},
+        );
+        if (
+          shallowequal(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) &&
+          shallowequal(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
+        ) {
+          return;
+        }
+        this.store.fixedColumnsHeadRowsHeight = fixedColumnsHeadRowsHeight;
+        this.store.fixedColumnsBodyRowsHeight = fixedColumnsBodyRowsHeight;
+      } catch (error) {}
     },
 
     resetScrollX() {

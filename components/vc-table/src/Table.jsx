@@ -238,20 +238,22 @@ export default {
     },
 
     setScrollPositionClassName() {
-      const node = this.ref_bodyTable;
-      const scrollToLeft = node.scrollLeft === 0;
-      const scrollToRight =
-        node.scrollLeft + 1 >=
-        node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
-      if (scrollToLeft && scrollToRight) {
-        this.setScrollPosition('both');
-      } else if (scrollToLeft) {
-        this.setScrollPosition('left');
-      } else if (scrollToRight) {
-        this.setScrollPosition('right');
-      } else if (this.scrollPosition !== 'middle') {
-        this.setScrollPosition('middle');
-      }
+      try {
+        const node = this.ref_bodyTable;
+        const scrollToLeft = node.scrollLeft === 0;
+        const scrollToRight =
+          node.scrollLeft + 1 >=
+          node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
+        if (scrollToLeft && scrollToRight) {
+          this.setScrollPosition('both');
+        } else if (scrollToLeft) {
+          this.setScrollPosition('left');
+        } else if (scrollToRight) {
+          this.setScrollPosition('right');
+        } else if (this.scrollPosition !== 'middle') {
+          this.setScrollPosition('middle');
+        }
+      } catch (error) {}
     },
 
     isTableLayoutFixed() {

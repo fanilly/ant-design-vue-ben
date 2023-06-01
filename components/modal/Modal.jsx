@@ -153,10 +153,10 @@ export default {
       );
       return (
         <div>
+          <Button {...okBtnProps}>{getComponentFromProp(this, 'okText') || locale.okText}</Button>
           <Button {...cancelBtnProps}>
             {getComponentFromProp(this, 'cancelText') || locale.cancelText}
           </Button>
-          <Button {...okBtnProps}>{getComponentFromProp(this, 'okText') || locale.okText}</Button>
         </div>
       );
     },

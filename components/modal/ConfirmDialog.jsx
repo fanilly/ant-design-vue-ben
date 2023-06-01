@@ -103,7 +103,6 @@ export default {
             </div>
           </div>
           <div class={`${contentPrefixCls}-btns`}>
-            {cancelButton}
             <ActionButton
               type={okType}
               actionFn={onOk}
@@ -113,6 +112,7 @@ export default {
             >
               {okText}
             </ActionButton>
+            {cancelButton}
           </div>
         </div>
       </Dialog>

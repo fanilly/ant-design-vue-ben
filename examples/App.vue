@@ -26,18 +26,46 @@
     <a-drawer placement="bottom" :visible="bVisible" @close="bVisible = false" title="test">
       <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
     </a-drawer>
+    <a-button type="primary" @click="openModel">Confirm</a-button>
+    <a-button type="primary" @click="modalVisible = true"> Modal </a-button>
+    <a-modal v-model="modalVisible" title="Modal" ok-text="确认" cancel-text="取消">
+      <p>Bla bla ...</p>
+      <p>Bla bla ...</p>
+      <p>Bla bla ...</p>
+    </a-modal>
+    <a-popconfirm title="Are you sure delete this task?" ok-text="Yes" cancel-text="No">
+      <a href="#">Delete</a>
+    </a-popconfirm>
   </div>
 </template>
 <script>
+import { Modal } from 'ant-design-vue';
 export default {
   data() {
     return {
+      modalVisible: false,
       rVisible: false,
       lVisible: false,
       tVisible: false,
       bVisible: false,
       text: `A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.`,
     };
+  },
+  methods: {
+    openModel() {
+      console.log(Modal);
+      this.$confirm({
+        title: 'Do you Want to delete these items?',
+        content: h => <div style="color:red;">Some descriptions</div>,
+        onOk() {
+          console.log('OK');
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+        class: 'test',
+      });
+    },
   },
 };
 </script>

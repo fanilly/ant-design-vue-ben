@@ -118,11 +118,11 @@ const Popconfirm = {
             <div class={`${prefixCls}-message-title`}>{getComponentFromProp(this, 'title')}</div>
           </div>
           <div class={`${prefixCls}-buttons`}>
-            <Button {...cancelBtnProps}>
-              {getComponentFromProp(this, 'cancelText') || popconfirmLocale.cancelText}
-            </Button>
             <Button {...okBtnProps}>
               {getComponentFromProp(this, 'okText') || popconfirmLocale.okText}
+            </Button>
+            <Button {...cancelBtnProps}>
+              {getComponentFromProp(this, 'cancelText') || popconfirmLocale.cancelText}
             </Button>
           </div>
         </div>

@@ -70,6 +70,7 @@ export default {
       inputIcon: PropTypes.any,
       clearIcon: PropTypes.any,
       addon: PropTypes.func,
+      triggerNode: PropTypes.any,
     },
     {
       clearText: 'clear',
@@ -360,26 +361,30 @@ export default {
         onPopupVisibleChange={this.onVisibleChange}
       >
         <template slot="popup">{this.getPanelElement()}</template>
-        <span class={`${prefixCls}`}>
-          <input
-            class={`${prefixCls}-input`}
-            ref="picker"
-            type="text"
-            placeholder={placeholder}
-            name={name}
-            onKeydown={this.onKeyDown}
-            disabled={disabled}
-            value={(sValue && sValue.format(this.getFormat())) || ''}
-            autoComplete={autoComplete}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            autoFocus={autoFocus}
-            readOnly
-            id={id}
-          />
-          {inputIcon || <span class={`${prefixCls}-icon`} />}
-          {this.renderClearButton()}
-        </span>
+        {this.triggerNode ? (
+          this.triggerNode
+        ) : (
+          <span class={`${prefixCls}`}>
+            <input
+              class={`${prefixCls}-input`}
+              ref="picker"
+              type="text"
+              placeholder={placeholder}
+              name={name}
+              onKeydown={this.onKeyDown}
+              disabled={disabled}
+              value={(sValue && sValue.format(this.getFormat())) || ''}
+              autoComplete={autoComplete}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              autoFocus={autoFocus}
+              readOnly
+              id={id}
+            />
+            {inputIcon || <span class={`${prefixCls}-icon`} />}
+            {this.renderClearButton()}
+          </span>
+        )}
       </Trigger>
     );
   },

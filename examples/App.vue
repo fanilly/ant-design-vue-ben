@@ -1,5 +1,6 @@
 <template>
   <div>
+    <PickerTest />
     <a-button type="primary" @click="rVisible = !rVisible">右侧弹窗</a-button>
     <a-button type="primary" @click="lVisible = !lVisible">左侧弹窗</a-button>
     <a-button type="primary" @click="tVisible = !tVisible">顶部弹窗</a-button>
@@ -40,7 +41,9 @@
 </template>
 <script>
 import { Modal } from 'ant-design-vue';
+import PickerTest from './PickerTest.vue';
 export default {
+  components: { PickerTest },
   data() {
     return {
       modalVisible: false,

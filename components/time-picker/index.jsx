@@ -233,6 +233,7 @@ const TimePicker = {
           addon: pickerAddon,
           inputIcon,
           clearIcon,
+          triggerNode: this.$slots.default || undefined,
         },
         class: pickerClassName,
         ref: 'timePicker',

@@ -25,4 +25,10 @@ export default {
   nextDecade: 'அடுத்த தசாப்தம்',
   previousCentury: 'முந்தைய நூற்றாண்டு',
   nextCentury: 'அடுத்த நூற்றாண்டு',
+  quarter1: 'First quarter',
+  quarter2: 'Second quarter',
+  quarter3: 'Third quarter',
+  quarter4: 'Fourth quarter',
+  lday: 'Day',
+  lquarter: 'Quarter',
 };

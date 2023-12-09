@@ -23,4 +23,10 @@ export default {
   nextDecade: '下一年代',
   previousCentury: '上一世紀',
   nextCentury: '下一世紀',
+  quarter1: '第一季度',
+  quarter2: '第二季度',
+  quarter3: '第三季度',
+  quarter4: '第四季度',
+  lday: '日',
+  lquarter: '季度',
 };

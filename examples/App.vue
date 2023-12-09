@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <a-config-provider :locale="locale1">
     <PickerTest />
     <a-button type="primary" @click="rVisible = !rVisible">右侧弹窗</a-button>
     <a-button type="primary" @click="lVisible = !lVisible">左侧弹窗</a-button>
@@ -37,15 +37,20 @@
     <a-popconfirm title="Are you sure delete this task?" ok-text="Yes" cancel-text="No">
       <a href="#">Delete</a>
     </a-popconfirm>
-  </div>
+  </a-config-provider>
 </template>
 <script>
 import { Modal } from 'ant-design-vue';
 import PickerTest from './PickerTest.vue';
+import locale from '../es/locale-provider/zh_CN';
+import locale1 from '../components/locale/zh_CN';
+
 export default {
   components: { PickerTest },
   data() {
     return {
+      locale,
+      locale1,
       modalVisible: false,
       rVisible: false,
       lVisible: false,

@@ -21,12 +21,31 @@
     <a-time-picker v-model="time" format="HH:mm:ss" valueFormat="HH:mm:ss">
       <a-input :value="time"></a-input>
     </a-time-picker>
+
+    <a-card title="时间区间测试">
+      <a-range-picker :ranges="ranges" footerPositionTop></a-range-picker>
+      <a-range-picker></a-range-picker>
+    </a-card>
   </div>
 </template>
 <script>
+import moment from 'moment';
 export default {
   data() {
+    const ranges = {
+      上月: [
+        moment()
+          .subtract(1, 'month')
+          .startOf('month')
+          .startOf('day'),
+        moment()
+          .subtract(1, 'month')
+          .endOf('month')
+          .endOf('day'),
+      ],
+    };
     return {
+      ranges,
       date: '',
       datetime: '',
       year: '',

@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Décennie suivante',
   previousCentury: 'Siècle précédent',
   nextCentury: 'Siècle suivant',
+  quarter1: 'le premier trimestre',
+  quarter2: 'seconde trimestre',
+  quarter3: 'Troisième trimestre',
+  quarter4: 'Quatrième trimestre',
+  lday: 'jour',
+  lquarter: 'trimestre',
 };

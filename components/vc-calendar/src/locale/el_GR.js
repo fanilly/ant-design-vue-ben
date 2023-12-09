@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Επόμενη δεκαετία',
   previousCentury: 'Προηγούμενος αιώνας',
   nextCentury: 'Επόμενος αιώνας',
+  quarter1: 'Πρώτο τρίμηνο',
+  quarter2: 'δεύτερο τρίμηνο',
+  quarter3: 'τρίτο τρίμηνο',
+  quarter4: 'τέταρτο τρίμηνο',
+  lday: 'ημέρα',
+  lquarter: 'τρίμηνο',
 };

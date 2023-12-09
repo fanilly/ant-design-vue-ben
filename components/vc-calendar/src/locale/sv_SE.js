@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Nästa årtionde',
   previousCentury: 'Föreg århundrade',
   nextCentury: 'Nästa århundrade',
+  quarter1: 'Första kvartalet',
+  quarter2: 'Andra kvartalet',
+  quarter3: 'Tredje kvartalet',
+  quarter4: 'Fjärde kvartalet',
+  lday: 'dag',
+  lquarter: 'kvartal',
 };

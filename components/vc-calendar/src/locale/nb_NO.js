@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Neste tiår',
   previousCentury: 'Forrige århundre',
   nextCentury: 'Neste århundre',
+  quarter1: 'Første kvart',
+  quarter2: 'sekund',
+  quarter3: 'Tredje kvart',
+  quarter4: 'fjerde kvart',
+  lday: 'dag',
+  lquarter: 'kvart',
 };

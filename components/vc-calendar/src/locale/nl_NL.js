@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Volgend decennium',
   previousCentury: 'Vorige eeuw',
   nextCentury: 'Volgende eeuw',
+  quarter1: 'eerste kwartaal',
+  quarter2: 'tweede kwartaal',
+  quarter3: 'Derde kwartaal',
+  quarter4: 'vierde kwartaal',
+  lday: 'dag',
+  lquarter: 'kwartaal',
 };

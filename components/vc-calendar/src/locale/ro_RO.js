@@ -25,4 +25,10 @@ export default {
   nextDecade: 'Deceniul următor',
   previousCentury: 'Secolul anterior',
   nextCentury: 'Secolul următor',
+  quarter1: 'First quarter',
+  quarter2: 'Second quarter',
+  quarter3: 'Third quarter',
+  quarter4: 'Fourth quarter',
+  lday: 'Day',
+  lquarter: 'Quarter',
 };

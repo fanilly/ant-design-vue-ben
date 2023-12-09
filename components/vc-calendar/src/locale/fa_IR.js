@@ -24,4 +24,10 @@ export default {
   nextDecade: 'دهه بعد',
   previousCentury: 'قرن قبل',
   nextCentury: 'قرن بعد',
+  quarter1: 'اولین چهارم',
+  quarter2: 'چهارم دوم',
+  quarter3: 'چهارم سوم',
+  quarter4: 'چهارم چهارم',
+  lday: 'روز',
+  lquarter: 'چهارم',
 };

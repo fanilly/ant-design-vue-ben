@@ -17,6 +17,7 @@ import CommonMixin from './mixin/CommonMixin';
 import enUs from './locale/en_US';
 import { syncTime, getTodayTime, isAllowedDate } from './util/';
 import { goTime, goStartMonth, goEndMonth, includesTime } from './util/toTime';
+import RangeCalendarCustomSelector from './RangeCalendarCustomSelector';
 
 function noop() {}
 
@@ -87,6 +88,8 @@ function onInputSelect(direction, value, cause) {
 
 const RangeCalendar = {
   props: {
+    hasRanges: PropTypes.bool.def(false),
+    footerPositionTop: PropTypes.bool.def(false),
     locale: PropTypes.object.def(enUs),
     visible: PropTypes.bool.def(true),
     prefixCls: PropTypes.string.def('rc-calendar'),
@@ -140,6 +143,8 @@ const RangeCalendar = {
       sValue: value,
       sShowTimePicker: false,
       sMode: props.mode || ['date', 'date'],
+      extraFooterHeight: 38,
+      lMode: '', // year, quarter, month
       sPanelTriggerSource: '', // Trigger by which picker panel: 'start' & 'end'
     };
   },
@@ -165,6 +170,17 @@ const RangeCalendar = {
         this.setState({ sMode: val });
       }
     },
+  },
+
+  mounted() {
+    const props = getOptionProps(this);
+    const { prefixCls } = props;
+    this.$nextTick(() => {
+      if (!this.$refs.extraFooter) return;
+      const extraFooter = this.$refs.extraFooter.querySelector(`.${prefixCls}-footer-extra`);
+      if (!extraFooter) return;
+      this.extraFooterHeight = extraFooter.offsetHeight;
+    });
   },
 
   methods: {
@@ -654,6 +670,41 @@ const RangeCalendar = {
       const { sValue } = this;
       return month.isBefore(sValue[0], 'month');
     },
+
+    rangeChange(value) {
+      this.$emit('rangeChange', value);
+    },
+
+    renderLside() {
+      const props = getOptionProps(this);
+      const { prefixCls, locale } = props;
+      const toggleToDate = () => {
+        this.lMode = '';
+        this.sMode.splice(0, 1, 'date');
+        this.sMode.splice(1, 1, 'date');
+      };
+      const toggleLMode = mode => (this.lMode = mode);
+
+      return this.hasRanges ? (
+        <div
+          class={{ [`${prefixCls}-panel-lside-box`]: true, [`is-lmode`]: this.lMode !== '' }}
+          style={{ bottom: `${this.extraFooterHeight}px` }}
+        >
+          <div class={`${prefixCls}-toggle-mode-btn`} onClick={() => toggleLMode('year')}>
+            {locale.year}
+          </div>
+          <div class={`${prefixCls}-toggle-mode-btn`} onClick={() => toggleLMode('quarter')}>
+            {locale.lquarter}
+          </div>
+          <div class={`${prefixCls}-toggle-mode-btn`} onClick={() => toggleLMode('month')}>
+            {locale.month}
+          </div>
+          <div class={`${prefixCls}-toggle-mode-btn`} onClick={toggleToDate}>
+            {locale.lday}
+          </div>
+        </div>
+      ) : null;
+    },
   },
 
   render() {
@@ -675,6 +726,7 @@ const RangeCalendar = {
       [prefixCls]: 1,
       [`${prefixCls}-hidden`]: !props.visible,
       [`${prefixCls}-range`]: 1,
+      [`${prefixCls}-has-lside`]: this.hasRanges,
       [`${prefixCls}-show-time-picker`]: sShowTimePicker,
       [`${prefixCls}-week-number`]: props.showWeekNumber,
     };
@@ -719,6 +771,7 @@ const RangeCalendar = {
     const todayTime = getTodayTime(startValue);
     const thisMonth = todayTime.month();
     const thisYear = todayTime.year();
+    const startValueYear = startValue.year();
     const isTodayInView =
       (startValue.year() === thisYear && startValue.month() === thisMonth) ||
       (endValue.year() === thisYear && endValue.month() === thisMonth);
@@ -824,11 +877,22 @@ const RangeCalendar = {
       <div ref="rootInstance" class={className} tabIndex="0" onKeydown={this.onKeyDown}>
         {props.renderSidebar()}
         <div class={`${prefixCls}-panel`}>
+          {this.lMode === '' ? null : (
+            <RangeCalendarCustomSelector
+              locale={locale}
+              prefixCls={prefixCls}
+              extraFooterHeight={this.extraFooterHeight}
+              defaultYear={startValueYear}
+              mode={this.lMode}
+              onRangeChange={this.rangeChange}
+            />
+          )}
           {showClear && sSelectedValue[0] && sSelectedValue[1] ? (
             <a role="button" title={locale.clear} onClick={this.clear}>
               {clearIcon || <span class={`${prefixCls}-clear-btn`} />}
             </a>
           ) : null}
+          {this.renderLside()}
           <div
             class={`${prefixCls}-date-panel`}
             onMouseleave={type !== 'both' ? this.onDatePanelLeave : noop}
@@ -838,7 +902,7 @@ const RangeCalendar = {
             <span class={`${prefixCls}-range-middle`}>{separator}</span>
             <CalendarPart {...rightPartProps} />
           </div>
-          <div class={cls}>
+          <div class={cls} ref="extraFooter">
             {showToday || props.timePicker || showOkButton || extraFooter ? (
               <div class={`${prefixCls}-footer-btn`}>
                 {extraFooter}

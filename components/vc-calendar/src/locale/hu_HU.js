@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Következő évtized', // 'Next decade',
   previousCentury: 'Múlt évszázad', // 'Last century',
   nextCentury: 'Jövő évszázad', // 'Next century',
+  quarter1: 'First quarter',
+  quarter2: 'Second quarter',
+  quarter3: 'Third quarter',
+  quarter4: 'Fourth quarter',
+  lday: 'Day',
+  lquarter: 'Quarter',
 };

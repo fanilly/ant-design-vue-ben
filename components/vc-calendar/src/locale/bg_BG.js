@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Следващо десетилетие',
   previousCentury: 'Последен век',
   nextCentury: 'Следващ век',
+  quarter1: 'първо тримесечие',
+  quarter2: 'втори тримесечие',
+  quarter3: 'Трето тримесечие',
+  quarter4: 'Четвърто тримесечие',
+  lday: 'ден',
+  lquarter: 'тримесечие',
 };

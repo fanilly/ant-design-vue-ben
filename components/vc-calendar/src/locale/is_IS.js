@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Næsti áratugur',
   previousCentury: 'Fyrri öld',
   nextCentury: 'Næsta öld',
+  quarter1: 'fyrsta kvartal',
+  quarter2: 'Þriðji kvartal',
+  quarter3: 'fjórðungur kvartal',
+  quarter4: 'fjórða kvartal ',
+  lday: 'dagur',
+  lquarter: 'kvartal',
 };

@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Następna dekada',
   previousCentury: 'Ostatni wiek',
   nextCentury: 'Następny wiek',
+  quarter1: 'pierwszy kwartał',
+  quarter2: 'drugie kwartał',
+  quarter3: 'Trzeci kwartał',
+  quarter4: 'czwarty kwartał',
+  lday: 'dzień',
+  lquarter: 'kwartał',
 };

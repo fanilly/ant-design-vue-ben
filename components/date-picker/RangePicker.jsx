@@ -353,6 +353,8 @@ export default {
         hoverValue,
         showToday,
         inputReadOnly,
+        hasRanges: !!ranges && !this.disabledShowLside,
+        footerPositionTop: this.footerPositionTop,
       },
       on: {
         change: calendarChange,
@@ -361,6 +363,7 @@ export default {
         hoverChange: this.handleHoverChange,
         panelChange,
         inputSelect: this.handleCalendarInputSelect,
+        rangeChange: this.handleRangeClick,
       },
       class: calendarClassName,
       scopedSlots: $scopedSlots,

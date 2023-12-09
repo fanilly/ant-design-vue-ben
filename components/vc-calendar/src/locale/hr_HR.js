@@ -25,4 +25,10 @@ export default {
   nextDecade: 'Sljedeće desetljeće',
   previousCentury: 'Prošlo stoljeće',
   nextCentury: 'Sljedeće stoljeće',
+  quarter1: 'First quarter',
+  quarter2: 'Second quarter',
+  quarter3: 'Third quarter',
+  quarter4: 'Fourth quarter',
+  lday: 'Day',
+  lquarter: 'Quarter',
 };

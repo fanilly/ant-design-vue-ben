@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Наступне десятиріччя',
   previousCentury: 'Попереднє століття',
   nextCentury: 'Наступне століття',
+  quarter1: 'перший квартал',
+  quarter2: 'секунда квартал',
+  quarter3: 'Третій квартал',
+  quarter4: 'Четвертий квартал',
+  lday: 'день',
+  lquarter: 'квартал',
 };

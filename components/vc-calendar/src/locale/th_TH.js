@@ -24,4 +24,10 @@ export default {
   nextDecade: 'ทศวรรษถัดไป',
   previousCentury: 'ศตวรรษก่อนหน้า',
   nextCentury: 'ศตวรรษถัดไป',
+  quarter1: 'ไตรมาสที่ 1',
+  quarter2: 'ไตรมาสที่ 2',
+  quarter3: 'ไตรมาสที่ 3',
+  quarter4: 'ไตรมาสที่ 4',
+  lday: 'วัน',
+  lquarter: 'รายไตรมาส',
 };

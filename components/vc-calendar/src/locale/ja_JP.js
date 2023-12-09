@@ -23,4 +23,10 @@ export default {
   nextDecade: '次の年代',
   previousCentury: '前の世紀',
   nextCentury: '次の世紀',
+  quarter1: '第1四半期',
+  quarter2: '第2四半期',
+  quarter3: '第3四半期',
+  quarter4: '第4四半期',
+  lday: '日',
+  lquarter: '四半期',
 };

@@ -25,4 +25,10 @@ export default {
   nextDecade: 'Deich mbliana amach romhainn',
   previousCentury: 'An chéid seo caite',
   nextCentury: 'An chéad aois eile',
+  quarter1: 'First quarter',
+  quarter2: 'Second quarter',
+  quarter3: 'Third quarter',
+  quarter4: 'Fourth quarter',
+  lday: 'Day',
+  lquarter: 'Quarter',
 };

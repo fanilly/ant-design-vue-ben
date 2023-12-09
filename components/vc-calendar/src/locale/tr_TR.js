@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Sonraki On Yıl',
   previousCentury: 'Önceki Yüzyıl',
   nextCentury: 'Sonraki Yüzyıl',
+  quarter1: 'ilk dördüncü',
+  quarter2: 'saniye dördüncü',
+  quarter3: 'Üçüncü dördüncü',
+  quarter4: 'Dördüncü dördüncü',
+  lday: 'Gün',
+  lquarter: 'dördüncü',
 };

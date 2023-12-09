@@ -25,4 +25,10 @@ export default {
   nextDecade: 'နောက် ဆယ်စုနှစ်',
   previousCentury: 'ယခင် ရာစုနှစ်',
   nextCentury: 'နောက် ရာစုနှစ်',
+  quarter1: 'First quarter',
+  quarter2: 'Second quarter',
+  quarter3: 'Third quarter',
+  quarter4: 'Fourth quarter',
+  lday: 'Day',
+  lquarter: 'Quarter',
 };

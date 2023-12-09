@@ -25,4 +25,10 @@ export default {
   nextDecade: 'Thập kỷ sau',
   previousCentury: 'Thế kỷ trước',
   nextCentury: 'Thế kỷ sau',
+  quarter1: 'Quý 1',
+  quarter2: 'Quý 2',
+  quarter3: 'Quý 3',
+  quarter4: 'Quý 4',
+  lday: 'Ngày',
+  lquarter: 'Quý',
 };

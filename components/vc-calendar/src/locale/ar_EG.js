@@ -24,4 +24,10 @@ export default {
   nextDecade: 'العقد التالى',
   previousCentury: 'القرن السابق',
   nextCentury: 'القرن التالى',
+  quarter1: 'الربع الأول',
+  quarter2: 'الربع الثاني',
+  quarter3: 'الربع الثالث',
+  quarter4: 'الربع الرابع',
+  lday: 'اليوم .',
+  lquarter: 'ربع',
 };

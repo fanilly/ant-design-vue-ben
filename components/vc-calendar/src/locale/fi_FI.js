@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Seuraava vuosikymmen',
   previousCentury: 'Edellinen vuosisata',
   nextCentury: 'Seuraava vuosisata',
+  quarter1: 'ensimmäinen vuosineljännes',
+  quarter2: 'toinen vuosineljännes',
+  quarter3: 'Kolmas vuosineljännes',
+  quarter4: 'Neljäs vuosineljännes',
+  lday: 'päivä',
+  lquarter: 'neljännes',
 };

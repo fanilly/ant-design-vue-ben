@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Dècada següent',
   previousCentury: 'Segle anterior',
   nextCentury: 'Segle següent',
+  quarter1: 'Al primer trimestre',
+  quarter2: 'Al segon trimestre',
+  quarter3: 'Al tercer trimestre',
+  quarter4: 'Al quart trimestre',
+  lday: 'El dia',
+  lquarter: 'trimestre',
 };

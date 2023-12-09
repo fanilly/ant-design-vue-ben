@@ -24,4 +24,10 @@ export default {
   nextDecade: '다음 연대',
   previousCentury: '이전 세기',
   nextCentury: '다음 세기',
+  quarter1: '1분기',
+  quarter2: '2분기',
+  quarter3: '3분기',
+  quarter4: '4분기',
+  lday: '일',
+  lquarter: '분기',
 };

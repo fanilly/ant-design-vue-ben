@@ -121,7 +121,7 @@ const Drawer = {
     });
   },
   updated: function updated() {
-    var self = this;
+    let self = this;
     this.$nextTick(function() {
       self.handleWindowResize();
       if (!self.resizeEvent) {

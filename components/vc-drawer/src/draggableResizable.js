@@ -229,7 +229,7 @@ export const draggableResizable = {
     },
   },
 
-  data: function() {
+  data() {
     return {
       rawWidth: this.w,
       rawHeight: this.h,
@@ -262,7 +262,7 @@ export const draggableResizable = {
     };
   },
 
-  created: function() {
+  created() {
     // eslint-disable-next-line
     if (this.maxWidth && this.minWidth > this.maxWidth)
       console.warn('[Vdr warn]: Invalid prop: minWidth cannot be greater than maxWidth');
@@ -272,7 +272,7 @@ export const draggableResizable = {
 
     this.resetBoundsAndMouseState();
   },
-  mounted: function() {
+  mounted() {
     if (!this.enableNativeDrag) {
       this.$el.ondragstart = () => false;
     }
@@ -287,7 +287,7 @@ export const draggableResizable = {
 
     addEvent(window, 'resize', this.checkParentSize);
   },
-  beforeDestroy: function() {
+  beforeDestroy() {
     removeEvent(document.documentElement, 'mousedown', this.deselect);
     removeEvent(document.documentElement, 'touchstart', this.handleUp);
     removeEvent(document.documentElement, 'mousemove', this.move);
@@ -570,7 +570,6 @@ export const draggableResizable = {
     },
     elementMove(e) {
       const axis = this.axis;
-      const grid = this.grid;
       const mouseClickPosition = this.mouseClickPosition;
 
       const tmpDeltaX =
@@ -614,7 +613,7 @@ export const draggableResizable = {
 
       this.$emit('resizing', this.left, this.top, this.width, this.height);
     },
-    handleUp(e) {
+    handleUp() {
       this.handle = null;
 
       this.resetBoundsAndMouseState();

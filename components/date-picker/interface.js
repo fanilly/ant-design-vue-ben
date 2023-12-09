@@ -68,6 +68,8 @@ export const RangePickerProps = () => ({
   defaultValue: TimesType,
   defaultPickerValue: TimesType,
   timePicker: PropTypes.any,
+  footerPositionTop: PropTypes.bool,
+  disabledShowLside: PropTypes.bool,
   // onChange?: (dates: TimesType, dateStrings: [string, string]) => void;
   // onCalendarChange?: (dates: TimesType, dateStrings: [string, string]) => void;
   // onOk?: (selectedTime: moment.Moment) => void;

@@ -25,4 +25,10 @@ export default {
   nextDecade: 'Nasledujúca dekáda',
   previousCentury: 'Predchádzajúce storočie',
   nextCentury: 'Nasledujúce storočie',
+  quarter1: 'prvý štvrťrok',
+  quarter2: 'sekundy štvrťrok',
+  quarter3: 'Tretí štvrťrok',
+  quarter4: 'štvrtý štvrťrok',
+  lday: 'deň',
+  lquarter: 'štvrťrok',
 };

@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Následující dekáda',
   previousCentury: 'Předchozí století',
   nextCentury: 'Následující století',
+  quarter1: 'prvním čtvrtletí',
+  quarter2: 'druhém čtvrtletí',
+  quarter3: 'třetí čtvrtletí',
+  quarter4: 'čtvrté čtvrtletí',
+  lday: 'den',
+  lquarter: 'čtvrtletí',
 };

@@ -24,4 +24,10 @@ export default {
   nextDecade: 'Järgmine dekaad',
   previousCentury: 'Eelmine sajand',
   nextCentury: 'Järgmine sajand',
+  quarter1: 'Esimene kvartal',
+  quarter2: 'teine kvartal',
+  quarter3: ' kolmas kvartal',
+  quarter4: 'neljas kvartal',
+  lday: 'päev',
+  lquarter: 'kvartal',
 };

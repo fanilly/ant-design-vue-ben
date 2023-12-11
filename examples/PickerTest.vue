@@ -23,7 +23,7 @@
     </a-time-picker>
 
     <a-card title="时间区间测试">
-      <a-range-picker :ranges="ranges" footerPositionTop></a-range-picker>
+      <a-range-picker showTime :ranges="ranges" footerPositionTop></a-range-picker>
       <a-range-picker></a-range-picker>
     </a-card>
   </div>

@@ -685,7 +685,7 @@ const RangeCalendar = {
       };
       const toggleLMode = mode => (this.lMode = mode);
 
-      return this.hasRanges ? (
+      return this.hasRanges && !this.sShowTimePicker ? (
         <div
           class={{ [`${prefixCls}-panel-lside-box`]: true, [`is-lmode`]: this.lMode !== '' }}
           style={{ bottom: `${this.extraFooterHeight}px` }}

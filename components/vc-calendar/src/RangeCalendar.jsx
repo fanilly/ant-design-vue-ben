@@ -173,11 +173,9 @@ const RangeCalendar = {
   },
 
   mounted() {
-    const props = getOptionProps(this);
-    const { prefixCls } = props;
     this.$nextTick(() => {
       if (!this.$refs.extraFooter) return;
-      const extraFooter = this.$refs.extraFooter.querySelector(`.${prefixCls}-footer-extra`);
+      const extraFooter = this.$refs.extraFooter;
       if (!extraFooter) return;
       this.extraFooterHeight = extraFooter.offsetHeight;
     });
@@ -877,7 +875,7 @@ const RangeCalendar = {
       <div ref="rootInstance" class={className} tabIndex="0" onKeydown={this.onKeyDown}>
         {props.renderSidebar()}
         <div class={`${prefixCls}-panel`}>
-          {this.lMode === '' ? null : (
+          {this.lMode === '' || this.sShowTimePicker ? null : (
             <RangeCalendarCustomSelector
               locale={locale}
               prefixCls={prefixCls}

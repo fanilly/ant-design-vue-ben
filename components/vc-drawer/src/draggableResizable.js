@@ -50,6 +50,20 @@ function removeEvent(el, event, handler) {
   }
 }
 
+/** ### 禁用body滚动 */
+function disabledIframePointerEvents() {
+  const style = document.createElement('style');
+  style.innerHTML = `.ant-drawer-content iframe { pointer-events: none !important; }`;
+  style.id = 'DisabledIframePointerEventsStyle';
+  document.head.appendChild(style);
+}
+
+/** ### 启用body滚动 */
+function enableIframePointerEvents() {
+  const style = document.getElementById('DisabledIframePointerEventsStyle');
+  style && style.remove();
+}
+
 const events = {
   mouse: {
     start: 'mousedown',
@@ -341,7 +355,6 @@ export const draggableResizable = {
     },
     elementTouchDown(e) {
       eventsFor = events.touch;
-
       this.elementDown(e);
     },
     elementDown(e) {
@@ -383,6 +396,7 @@ export const draggableResizable = {
           this.bounds = this.calcDragLimits();
         }
 
+        disabledIframePointerEvents();
         addEvent(document.documentElement, eventsFor.move, this.move);
         addEvent(document.documentElement, eventsFor.stop, this.handleUp);
       }
@@ -614,6 +628,7 @@ export const draggableResizable = {
       this.$emit('resizing', this.left, this.top, this.width, this.height);
     },
     handleUp() {
+      enableIframePointerEvents();
       this.handle = null;
 
       this.resetBoundsAndMouseState();

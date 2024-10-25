@@ -1,42 +1,52 @@
 <template>
   <a-config-provider :locale="locale1">
-    <PickerTest />
-    <a-button type="primary" @click="rVisible = !rVisible">右侧弹窗</a-button>
-    <a-button type="primary" @click="lVisible = !lVisible">左侧弹窗</a-button>
-    <a-button type="primary" @click="tVisible = !tVisible">顶部弹窗</a-button>
-    <a-button type="primary" @click="bVisible = !bVisible">底部弹窗</a-button>
-    <a-drawer placement="right" :visible="rVisible" @close="rVisible = false" title="测试">
-      <div slot="extra">
-        <a-button>取消</a-button>
-        <a-button type="primary">确定</a-button>
-      </div>
-      <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
-    </a-drawer>
-    <a-drawer placement="left" :visible="lVisible" @close="lVisible = false">
-      <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
-    </a-drawer>
-    <a-drawer
-      placement="top"
-      :visible="tVisible"
-      @close="tVisible = false"
-      title="test"
-      :closable="false"
-    >
-      <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
-    </a-drawer>
-    <a-drawer placement="bottom" :visible="bVisible" @close="bVisible = false" title="test">
-      <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
-    </a-drawer>
-    <a-button type="primary" @click="openModel">Confirm</a-button>
-    <a-button type="primary" @click="modalVisible = true"> Modal </a-button>
-    <a-modal v-model="modalVisible" title="Modal" ok-text="确认" cancel-text="取消">
-      <p>Bla bla ...</p>
-      <p>Bla bla ...</p>
-      <p>Bla bla ...</p>
-    </a-modal>
-    <a-popconfirm title="Are you sure delete this task?" ok-text="Yes" cancel-text="No">
-      <a href="#">Delete</a>
-    </a-popconfirm>
+    <div>
+      <PickerTest />
+      <a-button type="primary" @click="rVisible = !rVisible">右侧弹窗</a-button>
+      <a-button type="primary" @click="lVisible = !lVisible">左侧弹窗</a-button>
+      <a-button type="primary" @click="tVisible = !tVisible">顶部弹窗</a-button>
+      <a-button type="primary" @click="bVisible = !bVisible">底部弹窗</a-button>
+      <a-drawer placement="right" :visible="rVisible" @close="rVisible = false" title="测试">
+        <div slot="extra">
+          <a-button>取消</a-button>
+          <a-button type="primary">确定</a-button>
+        </div>
+        <div>
+          <iframe
+            src="https://vitejs.cn/vite5-cn/config/build-options.html#build-lib"
+            style="width: 100%; height: calc(-56px + 100vh);"
+            frameborder="0"
+            width="100%"
+            height="100%"
+          />
+        </div>
+      </a-drawer>
+      <a-drawer placement="left" :visible="lVisible" @close="lVisible = false">
+        <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
+      </a-drawer>
+      <a-drawer
+        placement="top"
+        :visible="tVisible"
+        @close="tVisible = false"
+        title="test"
+        :closable="false"
+      >
+        <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
+      </a-drawer>
+      <a-drawer placement="bottom" :visible="bVisible" @close="bVisible = false" title="test">
+        <h1 v-for="(item, index) in 'abcdefghijklmnopqrstuvwxyz'" :key="index">Hello</h1>
+      </a-drawer>
+      <a-button type="primary" @click="openModel">Confirm</a-button>
+      <a-button type="primary" @click="modalVisible = true"> Modal </a-button>
+      <a-modal v-model="modalVisible" title="Modal" ok-text="确认" cancel-text="取消">
+        <p>Bla bla ...</p>
+        <p>Bla bla ...</p>
+        <p>Bla bla ...</p>
+      </a-modal>
+      <a-popconfirm title="Are you sure delete this task?" ok-text="Yes" cancel-text="No">
+        <a href="#">Delete</a>
+      </a-popconfirm>
+    </div>
   </a-config-provider>
 </template>
 <script>

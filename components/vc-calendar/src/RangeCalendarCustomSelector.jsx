@@ -3,6 +3,18 @@ import moment from 'moment';
 import { getMonthName } from './util/index';
 import enUs from './locale/en_US';
 
+const YEAR_RANGE_SHORTCUTS = [
+  { key: 'fullYear', label: 'Full year' },
+  { key: 'firstHalf', label: 'First half' },
+  { key: 'secondHalf', label: 'Second half' },
+  { key: 'lastSixMonths', label: 'Last 6 months' },
+  { key: 'lastYear', label: 'Last year' },
+  { key: 'lastTwoYears', label: 'Last 2 years' },
+  { key: 'lastThreeYears', label: 'Last 3 years' },
+  { key: 'lastFourYears', label: 'Last 4 years' },
+  { key: 'lastFiveYears', label: 'Last 5 years' },
+];
+
 const RangeCalendarCustomSelector = {
   props: {
     mode: PropTypes.oneOf(['year', 'quarter', 'month']),
@@ -51,8 +63,15 @@ const RangeCalendarCustomSelector = {
   computed: {
     yearCount() {
       const { mode } = this;
-      const count = mode === 'year' ? 32 : mode === 'quarter' ? 24 : 16;
+      const count = mode === 'year' ? 15 : mode === 'quarter' ? 24 : 16;
       return count;
+    },
+    yearRangeShortcuts() {
+      const { locale } = this;
+      return YEAR_RANGE_SHORTCUTS.map(({ key, label }) => ({
+        key,
+        label: locale[key] || label,
+      }));
     },
   },
 
@@ -104,6 +123,58 @@ const RangeCalendarCustomSelector = {
           .endOf('month'),
       ]);
     },
+    chooseYearRange(type) {
+      const { yearActived } = this;
+      const today = moment().startOf('day');
+      const rollingRanges = {
+        lastSixMonths: [6, 'months'],
+        lastYear: [1, 'years'],
+        lastTwoYears: [2, 'years'],
+        lastThreeYears: [3, 'years'],
+        lastFourYears: [4, 'years'],
+        lastFiveYears: [5, 'years'],
+      };
+      let range;
+
+      switch (type) {
+        case 'fullYear':
+          range = [
+            moment()
+              .year(yearActived)
+              .startOf('year'),
+            moment()
+              .year(yearActived)
+              .endOf('year'),
+          ];
+          break;
+        case 'firstHalf':
+          range = [
+            moment()
+              .year(yearActived)
+              .startOf('year'),
+            moment()
+              .year(yearActived)
+              .month(5)
+              .endOf('month'),
+          ];
+          break;
+        case 'secondHalf':
+          range = [
+            moment()
+              .year(yearActived)
+              .month(6)
+              .startOf('month'),
+            moment()
+              .year(yearActived)
+              .endOf('year'),
+          ];
+          break;
+        default:
+          range = [today.clone().subtract(...rollingRanges[type]), moment().endOf('day')];
+      }
+
+      this.$emit('rangeChange', range);
+    },
     toggleYears(type) {
       const { currentYear, yearCount, lModeDatas } = this;
       this.currentYear =
@@ -115,7 +186,14 @@ const RangeCalendarCustomSelector = {
   },
 
   render() {
-    const { lModeDatas, prefixCls, extraFooterHeight, mode, yearActived } = this;
+    const {
+      lModeDatas,
+      prefixCls,
+      extraFooterHeight,
+      mode,
+      yearActived,
+      yearRangeShortcuts,
+    } = this;
     const prefixClsCustom = `${prefixCls}-custom-selector`;
     const cls = {
       [`${prefixClsCustom}`]: true,
@@ -137,7 +215,12 @@ const RangeCalendarCustomSelector = {
             </a>
             <a class={`${prefixCls}-next-year-btn`} onClick={() => this.toggleYears('next')} />
           </div>
-          <div class={`${prefixClsCustom}-body`}>
+          <div
+            class={{
+              [`${prefixClsCustom}-body`]: true,
+              [`${prefixClsCustom}-body-with-shortcuts`]: mode === 'year',
+            }}
+          >
             <div class={`${prefixClsCustom}-years`}>
               {lModeDatas.years.map(v => (
                 <div
@@ -152,6 +235,19 @@ const RangeCalendarCustomSelector = {
                 </div>
               ))}
             </div>
+            {mode === 'year' ? (
+              <div class={`${prefixClsCustom}-shortcuts`}>
+                {yearRangeShortcuts.map(v => (
+                  <div
+                    class={`${prefixClsCustom}-shortcuts-item`}
+                    key={v.key}
+                    onClick={() => this.chooseYearRange(v.key)}
+                  >
+                    {v.label}
+                  </div>
+                ))}
+              </div>
+            ) : null}
             {mode === 'quarter' ? (
               <div class={`${prefixClsCustom}-quarters`}>
                 {lModeDatas.quarters.map((v, i) => (

@@ -29,4 +29,13 @@ export default {
   quarter4: '第4四半期',
   lday: '日',
   lquarter: '四半期',
+  fullYear: 'Full year',
+  firstHalf: 'First half',
+  secondHalf: 'Second half',
+  lastSixMonths: 'Last 6 months',
+  lastYear: 'Last year',
+  lastTwoYears: 'Last 2 years',
+  lastThreeYears: 'Last 3 years',
+  lastFourYears: 'Last 4 years',
+  lastFiveYears: 'Last 5 years',
 };

@@ -30,4 +30,13 @@ export default {
   quarter4: '第四季度',
   lday: '日',
   lquarter: '季度',
+  fullYear: '全年',
+  firstHalf: '上半年',
+  secondHalf: '下半年',
+  lastSixMonths: '近半年',
+  lastYear: '近一年',
+  lastTwoYears: '近两年',
+  lastThreeYears: '近三年',
+  lastFourYears: '近四年',
+  lastFiveYears: '近五年',
 };

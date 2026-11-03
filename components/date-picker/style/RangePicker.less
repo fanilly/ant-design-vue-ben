@@ -133,6 +133,51 @@
       &-months {
         border-left: 1px solid @border-color-split;
       }
+
+      &-body-with-shortcuts {
+        .@{calendar-prefix-cls}-custom-selector-years {
+          flex: 0 0 294px;
+          padding: 12px 8px;
+          box-sizing: border-box;
+
+          &-item {
+            flex: none;
+            width: 33.333%;
+            padding: 0 4px;
+            box-sizing: border-box;
+          }
+        }
+
+        .@{calendar-prefix-cls}-custom-selector-shortcuts {
+          display: flex;
+          flex: 1;
+          flex-wrap: wrap;
+          align-content: center;
+          border-left: 1px solid @border-color-split;
+          padding: 12px 8px;
+          box-sizing: border-box;
+
+          &-item {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 33.333%;
+            height: 40px;
+            padding: 0 4px;
+            border-radius: @border-radius-base;
+            transition: all @ease-in @animation-duration-base;
+            box-sizing: border-box;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+
+            &:hover,
+            &.active {
+              background-color: @background-color-base;
+            }
+          }
+        }
+      }
     }
 
     &-lside-box {

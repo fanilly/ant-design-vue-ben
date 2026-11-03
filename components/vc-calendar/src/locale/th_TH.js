@@ -30,4 +30,13 @@ export default {
   quarter4: 'ไตรมาสที่ 4',
   lday: 'วัน',
   lquarter: 'รายไตรมาส',
+  fullYear: 'Full year',
+  firstHalf: 'First half',
+  secondHalf: 'Second half',
+  lastSixMonths: 'Last 6 months',
+  lastYear: 'Last year',
+  lastTwoYears: 'Last 2 years',
+  lastThreeYears: 'Last 3 years',
+  lastFourYears: 'Last 4 years',
+  lastFiveYears: 'Last 5 years',
 };
